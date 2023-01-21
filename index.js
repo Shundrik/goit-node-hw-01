@@ -2,25 +2,11 @@ const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 const contactsOperations = require("./contacts.js");
 
-// console.log(contactsOperations.list);
-
 const arr = hideBin(process.argv);
 const { argv } = yargs(arr);
 
-// const { program } = require("commander");
-// const readLine = require("readline");
-// const fs = require("fs/promisess")
-// program.option(
-//     " -a, --action <type>",
-//     " -i,--id <contact id>",
-//     " -n, --name <contact name>",
-// )
-// program.parse(process.argv);
-// const option = program.opts();
-
-// TODO: рефакторить
 async function invokeAction({ action, id, name, email, phone }) {
-  console.log("action //",action);
+  console.log("action //", action);
   switch (action) {
     case "list":
       const contacts = await contactsOperations.listContacts();
@@ -36,7 +22,11 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "add":
-      const newContacts = await contactsOperations.addContact(name, email, phone);
+      const newContacts = await contactsOperations.addContact(
+        name,
+        email,
+        phone
+      );
       console.table(newContacts);
       break;
 
@@ -49,6 +39,5 @@ async function invokeAction({ action, id, name, email, phone }) {
       console.warn("\x1B[31m Unknown action type!");
   }
 }
-
 
 invokeAction(argv);

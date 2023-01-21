@@ -37,9 +37,8 @@ async function removeContact(contactId) {
     if (resultById === -1) {
       return null;
     }
-    // console.log(resultById);
     const spliceId = contacts.splice(resultById, 1);
-    // console.log(spliceId);
+
     const contact = contacts.filter((el) => el.id !== String(contactId));
     const reWrite = JSON.stringify(contact, null, 4);
     await fs.writeFile(contactsPath, reWrite);
@@ -50,7 +49,6 @@ async function removeContact(contactId) {
 }
 
 async function addContact(name, email, phone) {
-  // console.log(name, email, phone);
   try {
     const contacts = await listContacts();
     const data = {
@@ -60,7 +58,7 @@ async function addContact(name, email, phone) {
       phone: phone,
     };
     contacts.push(data);
-    // console.log(contacts);
+
     const newContacts = JSON.stringify(contacts, null, 4);
     await fs.writeFile(contactsPath, newContacts);
     return contacts;
@@ -75,9 +73,3 @@ module.exports = {
   removeContact,
   addContact,
 };
-
-// getContactById("5");
-// addContact()
-// listContacts(contactsPath)
-// removeContact("1");
-// listContacts(contactsPath);
